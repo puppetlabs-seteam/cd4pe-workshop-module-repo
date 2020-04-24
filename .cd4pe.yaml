@@ -1,0 +1,60 @@
+config:
+  enable_pull_requests_from_forks: false
+  enable_pe_plans: true
+pipelines:
+  master:
+    triggers:
+    - "COMMIT"
+    stages:
+    - name: "Code Validation stage"
+      steps:
+      - type: "JOB"
+        name: "module-pdk-validate"
+        concurrent_compilations: 0
+        all_deployments: false
+      - type: "JOB"
+        name: "module-rspec-puppet"
+        concurrent_compilations: 0
+        all_deployments: false
+      - type: "PULL_REQUEST_GATE"
+        concurrent_compilations: 0
+        all_deployments: false
+      auto_promote: "all_succeeded"
+    - name: "Pipeline Stage 2"
+      steps:
+      - type: "IMPACT_ANALYSIS"
+        deployments:
+        - "Deployment to production on puppet-enterprise"
+        concurrent_compilations: 10
+        all_deployments: false
+      auto_promote: "all_succeeded"
+    - name: "Deploy to Dev"
+      steps:
+      - type: "DEPLOYMENT"
+        name: "Deployment to development on puppet-enterprise"
+        policy:
+          name: "cd4pe_deployments::eventual_consistency"
+        timeout: 3600000
+        concurrent_compilations: 0
+        all_deployments: false
+        pe_server: "puppet-enterprise"
+        target:
+          type: "NODE_GROUP"
+          node_group_id: "3c44f9cf-98ef-44b9-b89d-7f771784babe"
+      auto_promote: false
+    - name: "Deploy to Prod"
+      steps:
+      - type: "DEPLOYMENT"
+        name: "Deployment to production on puppet-enterprise"
+        policy:
+          name: "cd4pe_deployments::eventual_consistency"
+        timeout: 3600000
+        concurrent_compilations: 0
+        all_deployments: false
+        pe_server: "puppet-enterprise"
+        target:
+          type: "NODE_GROUP"
+          node_group_id: "904a9177-b0a6-4f56-8969-336b1c1a62d0"
+          control_repo: "control-repo-1"
+      auto_promote: false
+spec_version: "V1"
