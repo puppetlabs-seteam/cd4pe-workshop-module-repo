@@ -55,6 +55,6 @@ pipelines:
         target:
           type: "NODE_GROUP"
           node_group_id: "904a9177-b0a6-4f56-8969-336b1c1a62d0"
-          control_repo: "control-repo-1"
+          control_repo: "control-repo"
       auto_promote: false
 spec_version: "V1"
