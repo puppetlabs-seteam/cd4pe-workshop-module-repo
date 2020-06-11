@@ -1,0 +1,30 @@
+{
+    "description": "Provides an easy way to query PuppetDB. Can only be run on the PE master.",
+    "input_method": "environment",
+    "parameters": {
+      "factname": {
+        "description": "Report nodes based on this fact",
+        "type": "String[1]"
+      },
+      "factvalue": {
+        "description": "Optionally provide the value of the fact to filter nodes on",
+        "type": "Optional[Variant[Integer,Boolean,String[1]]]"
+      },
+      "filter": {
+        "description": "Optionally filter the nodes through a separate filter_fact and filter_factvalue",
+        "type": "Optional[Boolean]"
+      },
+      "filter_fact": {
+        "description": "Optionally provide the name of the filter fact. If you use this, you must also specify filter_factvalue",
+        "type": "Optional[Variant[Integer,Boolean,String[1]]]"
+      },
+      "filter_factvalue": {
+        "description": "Optionally provide the value of the filter fact. If you use this, you must also specify filter_fact",
+        "type": "Optional[Variant[Integer,Boolean,String[1]]]"
+      },
+      "summarize": {
+        "description": "Optionally summarize the results, grouped by the fact's value",
+        "type": "Optional[Boolean]"
+      }
+    }
+  }
