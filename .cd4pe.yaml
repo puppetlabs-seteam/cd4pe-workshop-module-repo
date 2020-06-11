@@ -40,7 +40,7 @@ pipelines:
         pe_server: "puppet-enterprise"
         target:
           type: "NODE_GROUP"
-          node_group_id: "3c44f9cf-98ef-44b9-b89d-7f771784babe"
+          node_group_id: "***DEV***"
       auto_promote: false
     - name: "Deploy to Prod"
       steps:
@@ -54,7 +54,7 @@ pipelines:
         pe_server: "puppet-enterprise"
         target:
           type: "NODE_GROUP"
-          node_group_id: "904a9177-b0a6-4f56-8969-336b1c1a62d0"
+          node_group_id: "***PRD***"
           control_repo: "control-repo"
       auto_promote: false
 spec_version: "V1"
